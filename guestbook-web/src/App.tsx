@@ -6,7 +6,7 @@ function App() {
 
   const [currentQuestion, setCurrentQuestion] = useState<Question | null>(null)
 
-  function handleSort(){
+  function handleSort() {
 
     const randomIndex = Math.floor(Math.random() * questionsList.length)
     const randomQuestion = questionsList[randomIndex]
@@ -16,8 +16,20 @@ function App() {
 
   return (
     <div>
-      <h1>Grimório de Mensagens 🧙‍♂️</h1>
-      <p>Em breve, a magia acontece aqui!</p>
+      <h1>Grimoire of Messages 🧙‍♂️</h1>
+
+
+      {currentQuestion ? (
+          <div>
+            <p><strong>✨{currentQuestion.id}: </strong>{currentQuestion.text}</p>
+          </div>
+        ) : 
+        (
+          <p>Clique no botão para invocar uma pergunta do grimório...</p>
+        )
+      }
+
+      <button onClick={handleSort}>Sortear Pergunta 🔮</button>
     </div>
   )
 }
