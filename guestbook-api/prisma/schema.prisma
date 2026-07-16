@@ -1,0 +1,38 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url = env("DATABASE_URL")
+}
+
+
+model Question {
+  id    Int     @id @default(autoincrement()) // ID numérico, chave primária e auto-incrementado
+  text  String  @db.Text                      // @db.Text para textos mais longos se necessário
+
+  answers Answer[]
+}
+
+model Answer {
+  id         Int    @id @default(autoincrement()) // Chave primária para cada resposta
+  text       String @db.Text
+  senderName String
+  createdAt DateTime @default(now()) // @default(now()) pega o timestamp exato do servidor no momento do insert
+  updateAt DateTime? @updatedAt // o Prisma coloca o timestamp sozinho quando rodar um "Put".
+
+  // Relação com a Pergunta
+  questionId Int
+  question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  // Auto-relacionamento (Para permitir respostas dentro de respostas!)
+  parentId   Int?      // opcional (respostas principais não têm pai)
+  parent     Answer?   @relation("AnswerReplies", fields: [parentId], references: [id], onDelete: Cascade)
+  replies    Answer[]  @relation("AnswerReplies")
+}
