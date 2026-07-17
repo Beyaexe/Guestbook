@@ -4,7 +4,10 @@ import { prisma } from "../lib/prisma.js"
 
 /* =================== GET API's ===================*/
 export function renderHome(req: Request, res: Response) {
-    res.sendFile(path.join(process.cwd(), "public", "index.html"));
+    res.json({
+        message: "Bem-vindo à API do Grimório de Mensagens! 🧙‍♂️",
+        status: "online"
+    });
 }
 
 export async function getAnswers(req: Request, res: Response) {

@@ -40,5 +40,5 @@
   },
   "include": [
     "src"
-  ]
+, "../guestbook-web/src/models/reply.ts"  ]
 }
