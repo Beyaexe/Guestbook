@@ -1,6 +1,5 @@
 import type { Request, Response } from "express";
 import path from "node:path";
-import { questionsList } from "../models/questions.js";
 import { prisma } from "../lib/prisma.js"
 
 /* =================== GET API's ===================*/
@@ -8,20 +7,11 @@ export function renderHome(req: Request, res: Response) {
     res.sendFile(path.join(process.cwd(), "public", "index.html"));
 }
 
-
-export function getQuestions(req: Request, res: Response) {
-    const randomIndex = Math.floor(Math.random() * questionsList.length);
-    const randomQuestion = questionsList[randomIndex]
-
-    res.json(randomQuestion)
-}
-
 export async function getAnswers(req: Request, res: Response) {
 
     try {
         //caso queira filtrar uma answer com uma question especifica.
         const { questionId } = req.query
-        console.log('query: ', req.query)
 
         const whereClause: any = {
             parentId: null // Sempre traz apenas as threads principais no topo

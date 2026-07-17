@@ -5,7 +5,7 @@ const router = Router();
 
 //get routes
 router.get("/", controllers.renderHome);
-router.get("/api/questions", controllers.getQuestions)
+// router.get("/api/questions", controllers.getQuestions)
 router.get("/api/answers", controllers.getAnswers)
 
 //post routes

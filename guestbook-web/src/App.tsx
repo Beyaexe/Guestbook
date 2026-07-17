@@ -1,6 +1,7 @@
 import { useState } from "react"
 import type { Question } from "./models/questions"
 import { questionsList } from "./models/questions"
+import axios from "axios"
 
 function App() {
 
@@ -8,6 +9,7 @@ function App() {
   const [answerText, setAnswerText] = useState("")
   const [senderName, setSenderName] = useState("");
 
+  //sortear outra pergunta
   function handleSort() {
 
     const randomIndex = Math.floor(Math.random() * questionsList.length)
@@ -15,6 +17,34 @@ function App() {
 
     setCurrentQuestion(randomQuestion)
   }
+
+  //requisição API com axios
+  async function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
+
+    e.preventDefault() //para não recarregar a página ao enviar
+    if (!currentQuestion) return
+
+
+    const payload = {
+      senderName: senderName,
+      text: answerText,
+      questionId: currentQuestion.id
+    }
+
+    try{
+      const response = await axios.post("http://localhost:3000/api/answers", payload)
+      alert("Mensagem enviada com sucesso para o grimório! 🌟");
+
+      setAnswerText("")
+    }
+    catch (error){
+      console.error("Erro ao enviar:", error);
+      alert("Houve um erro mágico ao tentar enviar sua mensagem...");
+    }
+
+}
+
+
 
   return (
     <div>
@@ -28,8 +58,7 @@ function App() {
           </div>
 
           <form onSubmit={(e) => {
-            e.preventDefault(); // Evita que a página recarregue
-            alert(`Enviando...`);
+            handleSubmit(e)
           }}>
 
             {/* Nome */}
@@ -48,7 +77,7 @@ function App() {
             {/* Caixa de texto para da resposta */}
             <div>
               <textarea
-                placeholder="Digite sua resposta mágica aqui..."
+                placeholder="Registre sua resposta mágica aqui..."
                 value={answerText}
                 onChange={(e) => setAnswerText(e.target.value)}
                 rows={4}
@@ -68,7 +97,7 @@ function App() {
         </div>
       ) : (
         <>
-          <p>Clique no botão para invocar uma pergunta do grimório...</p>
+          <p>Clique no botão para invocar uma pergunta do grimório!</p>
           <button onClick={handleSort}>Sortear Pergunta 🔮</button>
         </>
       )}
