@@ -1,6 +1,5 @@
 import { useState } from "react"
 import { useEffect } from "react"
-import axios from "axios"
 import type { Question } from "./models/questions"
 import type { Message } from "./models/message"
 import { QuestionBlock } from "./sections/QuestionsBlock"
@@ -20,6 +19,12 @@ function App() {
 
   //Mural de mensagens
   const [messages, setMessages] = useState<Message[]>([])
+
+  //Controle de estado para o reply
+  const [replyingTo, setReplyingTo] = useState<number | null>(null)
+
+
+  /*===================================*/
 
 
   //sortear outra pergunta

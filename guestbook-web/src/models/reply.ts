@@ -1,11 +1,11 @@
 export interface Reply {
- id: number;
+  id: number;
   text: string;
   senderName: string;
   createdAt: string;
   updateAt: string,
   questionId: number;
   parentId?: number;
-  replies?: []
+  replies?: Reply[]
 }
 
