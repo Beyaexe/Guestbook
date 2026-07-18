@@ -1,5 +1,6 @@
 import type { Reply } from "../models/reply"
 import type { Message } from "../models/message"
+import { questionsList } from "../models/questions"
 
 interface MessageWallProps {
     messages: Message[],
@@ -18,8 +19,9 @@ export function MessageWall({ messages }: MessageWallProps) {
                     <div style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
                         {messages.map((msg) => (
                             <div key={msg.id} style={{ border: "1px solid #ccc", padding: "4px", borderRadius: "8px" }}>
+                                <p><strong>"{questionsList[msg.questionId - 1].text}"</strong></p>
                                 <p><strong>{msg.senderName}</strong> assinou:</p>
-                                <p>"{msg.text}"</p>
+                                <p>{msg.text}</p>
                                 <div style={{ display: "flex" }}>
                                     <small style={{ color: "#777" }}>
                                         Enviado em: {new Date(msg.createdAt).toLocaleDateString("pt-BR")}
