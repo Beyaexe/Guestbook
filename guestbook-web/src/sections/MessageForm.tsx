@@ -6,10 +6,14 @@ interface MessageFormProps{
     setSenderName: (value: string) => void
     setAnswerText: (value: string) => void
     onSubmit: (e: React.SubmitEvent<HTMLFormElement>) => void
-    
 }
 
-export function MessageForm({senderName, answerText, setSenderName, setAnswerText, onSubmit}: MessageFormProps){
+export function MessageForm({
+   senderName,
+   answerText,
+   setSenderName,
+   setAnswerText,
+   onSubmit}: MessageFormProps){
 
 
     return(

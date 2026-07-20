@@ -34,6 +34,15 @@ function App() {
 
       <MessageWall
         messages={grimoire.messages}
+        replyingTo={grimoire.replyingTo}
+        senderName={grimoire.senderName}
+        answerText={grimoire.answerText}
+
+        setSenderName={grimoire.setSenderName}
+        setAnswerText={grimoire.setAnswerText}
+        onReply={grimoire.setReplyingTo}
+        onCancelReply={() => grimoire.setReplyingTo(null)}
+        onSubmitReply={grimoire.handleSubmit}
       />
 
     </div>
