@@ -19,7 +19,7 @@ export function useGrimoire() {
 
   //Controle de estado para o reply
   const [replyingTo, setReplyingTo] = useState<number | null>(null)
-
+  const [questionIdReply, setquestionIdReply] = useState<number | null>(null)
   /*===================================*/
 
 
@@ -38,7 +38,7 @@ export function useGrimoire() {
   async function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
 
     e.preventDefault() //para não recarregar a página ao enviar
-    if (!currentQuestion) return
+    if (!currentQuestion) return 
 
     try {
       await api.messageSerive.createMessage({
@@ -61,6 +61,34 @@ export function useGrimoire() {
   }
 
 
+  //requisição API com axios para enviar uma Reply para uma resposta
+  async function handleSubmitReply(e: React.SubmitEvent<HTMLFormElement>) {
+
+    e.preventDefault() //para não recarregar a página ao enviar
+    if (!questionIdReply || !replyingTo) return;
+
+    try {
+      await api.messageSerive.createReply({
+        senderName: senderName,
+        text: answerText,
+        questionId: questionIdReply,
+        parentId: replyingTo
+      })
+
+      console.log("Resposta enviada com sucesso para o grimório! 🌟")
+      setAnswerText("")
+      setSenderName("")
+      setquestionIdReply(null)
+      setReplyingTo(null)
+    }
+    catch (error) {
+      console.error("Erro ao enviar:", error);
+      alert("Houve um erro mágico ao tentar enviar sua mensagem...");
+    }
+
+  }
+
+
   //Popular message walls
   async function getMessages() {
     try {
@@ -73,10 +101,10 @@ export function useGrimoire() {
   }
 
 
-  // useEffect
+  // useEffects
   useEffect(() => {
     getMessages()
-  }, [currentQuestion])
+  }, [currentQuestion, replyingTo])
 
 
   return {
@@ -88,8 +116,10 @@ export function useGrimoire() {
     setAnswerText,
     setSenderName,
     setReplyingTo,
+    setquestionIdReply,
     handleSort,
     handleSubmit,
+    handleSubmitReply,
     getMessages, //Caso precise recarregar de fora
   }
 }

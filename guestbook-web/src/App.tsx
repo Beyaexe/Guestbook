@@ -40,9 +40,19 @@ function App() {
 
         setSenderName={grimoire.setSenderName}
         setAnswerText={grimoire.setAnswerText}
-        onReply={grimoire.setReplyingTo}
-        onCancelReply={() => grimoire.setReplyingTo(null)}
-        onSubmitReply={grimoire.handleSubmit}
+        
+        onReply={(messageId, questionId) => {
+           grimoire.setReplyingTo(messageId)        //Abre a caixa de texto
+           grimoire.setquestionIdReply(questionId)  //Guarda a ID da pergunta pro envio
+        }}
+
+        onCancelReply={() => {
+           grimoire.setReplyingTo(null);
+           grimoire.setquestionIdReply(null);
+        }}
+
+
+        onSubmitReply={grimoire.handleSubmitReply}
       />
 
     </div>

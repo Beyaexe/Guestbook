@@ -14,7 +14,7 @@ interface MessageWallProps {
     onSubmitReply: (e: React.SubmitEvent<HTMLFormElement>) => void
 
     onCancelReply: () => void
-    onReply: (messageId: number, personName: string) => void
+    onReply: (messageId: number, questionId: number) => void
 }
 
 
@@ -57,7 +57,7 @@ export function MessageWall({
                                         )}
 
                                     <button
-                                        onClick={() => msg.id && onReply(msg.id, msg.senderName)}
+                                        onClick={() => msg.id && onReply(msg.id, msg.questionId)}
                                         style={{ background: "none", border: "none", color: "#0070f3", cursor: "pointer", padding: 0 }}
                                     >
                                         Responder 💬
@@ -106,12 +106,12 @@ export function MessageWall({
 
                                                 {
                                                     reply.updateAt && (
-                                                        <small style={{ color: "#777" }}>{"["}Editado em: {new Date(msg.updateAt).toLocaleDateString("pt-BR")}{"]"}
+                                                        <small style={{ color: "#777" }}>{"["}Editado em: {new Date(reply.updateAt).toLocaleDateString("pt-BR")}{"]"} 
                                                         </small>
                                                     )}
 
                                                 <button
-                                                    onClick={() => reply.id && onReply(reply.id, reply.senderName)}
+                                                    onClick={() => reply.id && onReply(reply.id, reply.questionId)}
                                                     style={{ background: "none", border: "none", color: "#0070f3", cursor: "pointer", padding: 0 }}
                                                 >
                                                     Responder 💬
