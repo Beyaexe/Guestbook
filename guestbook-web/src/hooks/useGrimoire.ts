@@ -9,6 +9,11 @@ export function useGrimoire() {
 
   //Questão sendo exibida
   const [currentQuestion, setCurrentQuestion] = useState<Question | null>(null)
+  //Array de questão em cache
+  const [seenQuestionIds, setSeenQuestionIds] = useState<number[]>(() => {
+    const saved = sessionStorage.getItem("@grimoire:seen_questions")
+    return saved ? JSON.parse(saved) : []
+  })
 
   //Controle do usuário no form
   const [answerText, setAnswerText] = useState("")
@@ -31,11 +36,34 @@ export function useGrimoire() {
   function handleSort() {
     setLoadingButton(true)
 
-    setTimeout(() => {
-      const randomIndex = Math.floor(Math.random() * questionsList.length)
-      const randomQuestion = questionsList[randomIndex]
 
-      setCurrentQuestion(randomQuestion)
+    setTimeout(() => {
+
+      let availableQuestions = questionsList.filter(
+        (q) => !seenQuestionIds.includes(q.id)
+      )
+
+      console.log(availableQuestions)
+      let baseSeenIds = seenQuestionIds
+
+      //todas já foram sorteadas?
+      if (availableQuestions.length === 0) {
+        availableQuestions = questionsList
+        baseSeenIds = []
+      }
+
+
+      const randomIndex = Math.floor(Math.random() * availableQuestions.length)
+      const selectedQuestion = availableQuestions[randomIndex]
+      console.log(`sorteou: ${selectedQuestion.id}`)
+
+      setCurrentQuestion(selectedQuestion)
+
+      const updatedIds = [...baseSeenIds, selectedQuestion.id]
+
+      setSeenQuestionIds(updatedIds)
+      sessionStorage.setItem("@grimoire:seen_questions", JSON.stringify(updatedIds))
+
       setLoadingButton(false)
     }, 500)
 

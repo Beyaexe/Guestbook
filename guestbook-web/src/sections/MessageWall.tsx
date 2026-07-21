@@ -98,7 +98,7 @@ export function MessageWall({
                                                     <strong>{reply.senderName}</strong> respondeu:
                                                 </p>
                                                 <p style={{ margin: "2px 0" }}>
-                                                    "{reply.text}"
+                                                    {reply.text}
                                                 </p>
                                                 <small style={{ color: "#777" }}>
                                                     Respondido em: {new Date(reply.createdAt).toLocaleDateString("pt-BR")}
