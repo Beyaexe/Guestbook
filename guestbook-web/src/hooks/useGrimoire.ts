@@ -86,19 +86,26 @@ export function useGrimoire() {
     if (!currentQuestion) return
 
     try {
-      await api.messageSerive.createMessage({
+      const response = await api.messageSerive.createMessage({
         senderName: senderName,
         text: answerText,
         questionId: currentQuestion.id
       })
 
       console.log("Mensagem enviada com sucesso para o grimório! 🌟")
+
       setAnswerText("")
       setSenderName("")
       setCurrentQuestion(null)
       setReplyingTo(null)
 
+      const savedIds = localStorage.getItem("@grimoire:my_answers")
+      const myAnswers: number[] = savedIds ? JSON.parse(savedIds) : []
+
+      myAnswers.push(response.data.id)
       
+      localStorage.setItem("@grimoire:my_answers", JSON.stringify(myAnswers))
+
     }
     catch (error) {
       console.error("Erro ao enviar:", error);
