@@ -15,6 +15,9 @@ export function useGrimoire() {
     return saved ? JSON.parse(saved) : []
   })
 
+  //Controle do estado grimoire aberto
+  const [isOpenGrimoire, setOpenGrimoire] = useState(false)
+
   //Controle do usuário no form
   const [answerText, setAnswerText] = useState("")
   const [senderName, setSenderName] = useState("");
@@ -28,22 +31,21 @@ export function useGrimoire() {
 
   //Controle de estado do botão de invocar pergunta
   const [isLoadingButton, setLoadingButton] = useState(false)
+
   /*===================================*/
 
 
+  //Questions
 
   //sortear outra pergunta
   function handleSort() {
     setLoadingButton(true)
-
-
     setTimeout(() => {
 
       let availableQuestions = questionsList.filter(
         (q) => !seenQuestionIds.includes(q.id)
       )
 
-      console.log(availableQuestions)
       let baseSeenIds = seenQuestionIds
 
       //todas já foram sorteadas?
@@ -55,7 +57,6 @@ export function useGrimoire() {
 
       const randomIndex = Math.floor(Math.random() * availableQuestions.length)
       const selectedQuestion = availableQuestions[randomIndex]
-      console.log(`sorteou: ${selectedQuestion.id}`)
 
       setCurrentQuestion(selectedQuestion)
 
@@ -69,6 +70,14 @@ export function useGrimoire() {
 
   }
 
+
+  function handleGrimoireQuestion(questionSelected: Question){
+    setCurrentQuestion(questionSelected)
+    setOpenGrimoire(false)
+  }
+
+
+/*===================================*/
 
   //requisição API com axios para enviar uma resposta
   async function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
@@ -88,6 +97,8 @@ export function useGrimoire() {
       setSenderName("")
       setCurrentQuestion(null)
       setReplyingTo(null)
+
+      
     }
     catch (error) {
       console.error("Erro ao enviar:", error);
@@ -167,14 +178,17 @@ export function useGrimoire() {
     messages,
     replyingTo,
     isLoadingButton,
+    isOpenGrimoire,
     setAnswerText,
     setSenderName,
     setReplyingTo,
+    setOpenGrimoire,
     setQuestionIdReply,
     setLoadingButton,
     handleSort,
     handleSubmit,
     handleSubmitReply,
+    handleGrimoireQuestion,
     getMessages, //Caso precise recarregar de fora
   }
 }

@@ -16,6 +16,10 @@ function App() {
         currentQuestion={grimoire.currentQuestion}
         onSort={grimoire.handleSort}
         isLoading={grimoire.isLoadingButton}
+        isOpenGrimoire={grimoire.isOpenGrimoire}
+        onToggleModal={() => {grimoire.setOpenGrimoire(!grimoire.isOpenGrimoire)}}
+        onSelectQuestion={grimoire.handleGrimoireQuestion}
+       
       />
 
       {grimoire.currentQuestion &&

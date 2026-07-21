@@ -52,9 +52,16 @@ export function MessageWall({
 
                                     {
                                         msg.updateAt && (
-                                            <small style={{ color: "#777" }}>{"["}Editado em: {new Date(msg.updateAt).toLocaleDateString("pt-BR")}{"]"}
+                                            <small style={{ color: "#777" }}>{"["}Editado em: {new Date(msg.updateAt).toLocaleString("pt-BR", {
+                                                day: "2-digit",
+                                                month: "2-digit",
+                                                year: "numeric",
+                                                hour: "2-digit",
+                                                minute: "2-digit",
+                                            })}{"]"}
                                             </small>
                                         )}
+
 
                                     <button
                                         onClick={() => msg.id && onReply(msg.id, msg.questionId)}
@@ -106,7 +113,15 @@ export function MessageWall({
 
                                                 {
                                                     reply.updateAt && (
-                                                        <small style={{ color: "#777" }}>{"["}Editado em: {new Date(reply.updateAt).toLocaleDateString("pt-BR")}{"]"} 
+                                                        <small
+                                                            style={{ color: "#777" }}>
+                                                            {"["}Editado em: {new Date(reply.updateAt).toLocaleString("pt-BR", {
+                                                                day: "2-digit",
+                                                                month: "2-digit",
+                                                                year: "numeric",
+                                                                hour: "2-digit",
+                                                                minute: "2-digit",
+                                                            })}{"]"}
                                                         </small>
                                                     )}
 
@@ -118,18 +133,18 @@ export function MessageWall({
                                                 </button>
 
                                                 {replyingTo === reply.id && (
-                                                <MessageReply
-                                                    personName={reply.senderName}
-                                                    senderName={senderName}
-                                                    answerText={answerText}
-                                                    setSenderName={setSenderName}
-                                                    setAnswerText={setAnswerText}
-                                                    onSubmit={onSubmitReply}
-                                                    onCancel={onCancelReply}
-                                                />
-                                            )}
+                                                    <MessageReply
+                                                        personName={reply.senderName}
+                                                        senderName={senderName}
+                                                        answerText={answerText}
+                                                        setSenderName={setSenderName}
+                                                        setAnswerText={setAnswerText}
+                                                        onSubmit={onSubmitReply}
+                                                        onCancel={onCancelReply}
+                                                    />
+                                                )}
                                             </div>
-                                            
+
                                         ))}
                                     </div>
 
