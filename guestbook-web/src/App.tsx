@@ -15,6 +15,7 @@ function App() {
       <QuestionBlock
         currentQuestion={grimoire.currentQuestion}
         onSort={grimoire.handleSort}
+        isLoading={grimoire.isLoadingButton}
       />
 
       {grimoire.currentQuestion &&
@@ -43,12 +44,12 @@ function App() {
         
         onReply={(messageId, questionId) => {
            grimoire.setReplyingTo(messageId)        //Abre a caixa de texto
-           grimoire.setquestionIdReply(questionId)  //Guarda a ID da pergunta pro envio
+           grimoire.setQuestionIdReply(questionId)  //Guarda a ID da pergunta pro envio
         }}
 
         onCancelReply={() => {
            grimoire.setReplyingTo(null);
-           grimoire.setquestionIdReply(null);
+           grimoire.setQuestionIdReply(null);
         }}
 
 

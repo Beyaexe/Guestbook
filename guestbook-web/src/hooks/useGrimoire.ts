@@ -19,18 +19,26 @@ export function useGrimoire() {
 
   //Controle de estado para o reply
   const [replyingTo, setReplyingTo] = useState<number | null>(null)
-  const [questionIdReply, setquestionIdReply] = useState<number | null>(null)
+  const [questionIdReply, setQuestionIdReply] = useState<number | null>(null)
+
+  //Controle de estado do botão de invocar pergunta
+  const [isLoadingButton, setLoadingButton] = useState(false)
   /*===================================*/
 
 
-  
+
   //sortear outra pergunta
   function handleSort() {
+    setLoadingButton(true)
 
-    const randomIndex = Math.floor(Math.random() * questionsList.length)
-    const randomQuestion = questionsList[randomIndex]
+    setTimeout(() => {
+      const randomIndex = Math.floor(Math.random() * questionsList.length)
+      const randomQuestion = questionsList[randomIndex]
 
-    setCurrentQuestion(randomQuestion)
+      setCurrentQuestion(randomQuestion)
+      setLoadingButton(false)
+    }, 500)
+
   }
 
 
@@ -38,7 +46,7 @@ export function useGrimoire() {
   async function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
 
     e.preventDefault() //para não recarregar a página ao enviar
-    if (!currentQuestion) return 
+    if (!currentQuestion) return
 
     try {
       await api.messageSerive.createMessage({
@@ -68,7 +76,7 @@ export function useGrimoire() {
     if (!questionIdReply || !replyingTo) return;
 
     try {
-      await api.messageSerive.createReply({
+      const response = await api.messageSerive.createReply({
         senderName: senderName,
         text: answerText,
         questionId: questionIdReply,
@@ -76,9 +84,26 @@ export function useGrimoire() {
       })
 
       console.log("Resposta enviada com sucesso para o grimório! 🌟")
+
+      const novaReplica = response.allAnswers;
+
+
+      setMessages((mensagensAntigas) =>
+        mensagensAntigas.map((msg) => {
+
+          if (msg.id === replyingTo) {
+            return {
+              ...msg,
+              replies: [...(msg.replies || []), novaReplica]
+            }
+          }
+          return msg;
+        })
+      );
+
       setAnswerText("")
       setSenderName("")
-      setquestionIdReply(null)
+      setQuestionIdReply(null)
       setReplyingTo(null)
     }
     catch (error) {
@@ -104,7 +129,7 @@ export function useGrimoire() {
   // useEffects
   useEffect(() => {
     getMessages()
-  }, [currentQuestion, replyingTo])
+  }, [currentQuestion])
 
 
   return {
@@ -113,10 +138,12 @@ export function useGrimoire() {
     senderName,
     messages,
     replyingTo,
+    isLoadingButton,
     setAnswerText,
     setSenderName,
     setReplyingTo,
-    setquestionIdReply,
+    setQuestionIdReply,
+    setLoadingButton,
     handleSort,
     handleSubmit,
     handleSubmitReply,
