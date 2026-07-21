@@ -25,8 +25,10 @@ model Answer {
   text       String @db.Text
   senderName String
   createdAt DateTime @default(now()) // @default(now()) pega o timestamp exato do servidor no momento do insert
-  updateAt DateTime? @updatedAt // o Prisma coloca o timestamp sozinho quando rodar um "Put".
+  // updateAt DateTime? @updatedAt // o Prisma coloca o timestamp sozinho quando rodar um "Put".
+  updateAt DateTime?
 
+  
   // Relação com a Pergunta
   questionId Int
   question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
