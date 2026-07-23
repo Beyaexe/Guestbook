@@ -1,5 +1,4 @@
 import type { Request, Response } from "express";
-import path from "node:path";
 import { prisma } from "../lib/prisma.js"
 
 /* =================== GET API's ===================*/
@@ -120,12 +119,15 @@ export async function updateAnswer(req: Request, res: Response) {
 
         const updatedAnswer = await prisma.answer.update({
             where: { id: Number(id) },
-            data: { text: text }
+            data: { 
+                text: text,
+                updateAt: new Date()
+            }
         });
 
         res.status(200).json({
             message: "Resposta atualizada com sucesso! =)",
-            //answer: updatedAnswer
+            answer: updatedAnswer
         })
     }
     catch (error) {
