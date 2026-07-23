@@ -32,12 +32,13 @@ export function useGrimoire() {
   //Controle de estado do botão de invocar pergunta
   const [isLoadingButton, setLoadingButton] = useState(false)
 
+  //Controle de estado para a edição de mensagem enviada
+  const [messageIdEditing, setMessageIdEditing] = useState<number | null>(null)
+
   /*===================================*/
 
 
   //Questions
-
-  //sortear outra pergunta
   function handleSort() {
     setLoadingButton(true)
     setTimeout(() => {
@@ -78,15 +79,74 @@ export function useGrimoire() {
 
 
 /*===================================*/
+//Edition state
+function handleEdition(messageText: string, messageId: number){
+  setMessageIdEditing(messageId)
+  setAnswerText(messageText)
+  setMessageIdEditing(messageId)
+}
+
+/*===================================*/
+//PUT
+async function handleEditionSubmit(e: React.SubmitEvent<HTMLFormElement>) {
+  e.preventDefault() //para não recarregar a página ao enviar
+
+  if (!answerText || !messageIdEditing) return
+
+  try{
+    const response = await api.messageService.editMessage({
+      text: answerText,
+      id: messageIdEditing
+    })
+
+    console.log("Mensagem enviada com sucesso para o grimório! 🌟")
+
+    const newResponse = response.answer;
+
+    setMessageIdEditing(null);
+    setAnswerText("");
+
+    setMessages((mensagensAntigas) =>
+  mensagensAntigas.map((msg) => {
+    
+    if (msg.id === messageIdEditing) {
+      return { ...msg, text: newResponse.text, updateAt: newResponse.updateAt }
+    }
+
+    if (msg.replies) {
+      return {
+        ...msg,
+        replies: msg.replies.map(reply => 
+          reply.id === messageIdEditing 
+            ? { ...reply, text: newResponse.text, updateAt: newResponse.updateAt } 
+            : reply
+        )
+      }
+    }
+
+    //Se não for a editada e não tiver respostas, devolve intacta.
+    return msg
+  })
+);
+  }
+  catch (error) {
+      console.error("Erro ao enviar:", error);
+      alert("Houve um erro mágico ao tentar enviar sua mensagem...");
+  }
+}
+
+/*===================================*/
+//POST
 
   //requisição API com axios para enviar uma resposta
   async function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
 
     e.preventDefault() //para não recarregar a página ao enviar
+  
     if (!currentQuestion) return
 
     try {
-      const response = await api.messageSerive.createMessage({
+      const response = await api.messageService.createMessage({
         senderName: senderName,
         text: answerText,
         questionId: currentQuestion.id
@@ -102,7 +162,7 @@ export function useGrimoire() {
       const savedIds = localStorage.getItem("@grimoire:my_answers")
       const myAnswers: number[] = savedIds ? JSON.parse(savedIds) : []
 
-      myAnswers.push(response.data.id)
+      myAnswers.push(response.allAnswers.id)
       
       localStorage.setItem("@grimoire:my_answers", JSON.stringify(myAnswers))
 
@@ -119,10 +179,10 @@ export function useGrimoire() {
   async function handleSubmitReply(e: React.SubmitEvent<HTMLFormElement>) {
 
     e.preventDefault() //para não recarregar a página ao enviar
-    if (!questionIdReply || !replyingTo) return;
+    if (!questionIdReply || !replyingTo || !answerText) return;
 
     try {
-      const response = await api.messageSerive.createReply({
+      const response = await api.messageService.createReply({
         senderName: senderName,
         text: answerText,
         questionId: questionIdReply,
@@ -131,7 +191,7 @@ export function useGrimoire() {
 
       console.log("Resposta enviada com sucesso para o grimório! 🌟")
 
-      const novaReplica = response.allAnswers;
+      const novaReplica = response.allAnswers
 
 
       setMessages((mensagensAntigas) =>
@@ -145,16 +205,24 @@ export function useGrimoire() {
           }
           return msg;
         })
-      );
+      )
 
       setAnswerText("")
       setSenderName("")
       setQuestionIdReply(null)
       setReplyingTo(null)
+
+
+      const savedIds = localStorage.getItem("@grimoire:my_answers")
+      const myAnswers: number[] = savedIds ? JSON.parse(savedIds) : []
+
+      myAnswers.push(response.allAnswers.id)
+      
+      localStorage.setItem("@grimoire:my_answers", JSON.stringify(myAnswers))
     }
     catch (error) {
-      console.error("Erro ao enviar:", error);
-      alert("Houve um erro mágico ao tentar enviar sua mensagem...");
+      console.error("Erro ao enviar:", error)
+      alert("Houve um erro mágico ao tentar enviar sua mensagem...")
     }
 
   }
@@ -163,7 +231,7 @@ export function useGrimoire() {
   //Popular message walls
   async function getMessages() {
     try {
-      const response = await api.messageSerive.getMessages(currentQuestion?.id)
+      const response = await api.messageService.getMessages(currentQuestion?.id)
       setMessages(response.data)
     }
     catch (error) {
@@ -186,6 +254,7 @@ export function useGrimoire() {
     replyingTo,
     isLoadingButton,
     isOpenGrimoire,
+    messageIdEditing,
     setAnswerText,
     setSenderName,
     setReplyingTo,
@@ -196,6 +265,9 @@ export function useGrimoire() {
     handleSubmit,
     handleSubmitReply,
     handleGrimoireQuestion,
+    handleEdition,
+    handleEditionSubmit,
+    setMessageIdEditing,
     getMessages, //Caso precise recarregar de fora
   }
 }

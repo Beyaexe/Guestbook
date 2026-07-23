@@ -42,10 +42,12 @@ function App() {
         replyingTo={grimoire.replyingTo}
         senderName={grimoire.senderName}
         answerText={grimoire.answerText}
+        messageIdEditing={grimoire.messageIdEditing}
 
         setSenderName={grimoire.setSenderName}
         setAnswerText={grimoire.setAnswerText}
         
+        //Reply//
         onReply={(messageId, questionId) => {
            grimoire.setReplyingTo(messageId)        //Abre a caixa de texto
            grimoire.setQuestionIdReply(questionId)  //Guarda a ID da pergunta pro envio
@@ -56,9 +58,19 @@ function App() {
            grimoire.setQuestionIdReply(null);
         }}
 
-
         onSubmitReply={grimoire.handleSubmitReply}
-      />
+        openEdition={(messageText, messageId) =>{
+        grimoire.handleEdition(messageText, messageId)
+        }}
+
+
+        //Edit//
+        onSubmitEdit={grimoire.handleEditionSubmit}
+        onCancelEdit={() => {
+          grimoire.setMessageIdEditing(null)
+          grimoire.setAnswerText('')
+        }}
+        />
 
     </div>
   )
