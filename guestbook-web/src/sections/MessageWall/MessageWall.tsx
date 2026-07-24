@@ -1,5 +1,5 @@
-import type { Message } from "../models/message"
-import { MessageBlock } from "../components/ui/MessageBlock"
+import type { Message } from "../../models/message"
+import { MessageBlock } from "../../components/ui/MessageBlock"
 
 interface MessageWallProps {
     messages: Message[],

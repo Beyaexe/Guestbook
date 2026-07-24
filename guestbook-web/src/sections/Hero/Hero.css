@@ -1,0 +1,71 @@
+/* Container 100% da tela inicial */
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-12px); /* Eleva o elemento levemente */
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.hero-section {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh; 
+  
+  background-color: #f2ebd9; 
+  background-image: url("./src/assets/images/grimoire_background3.png");
+  background-size: contain;
+  background-repeat: repeat;
+  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden; 
+}
+
+.floating-grimoire {
+  margin-bottom: 20px;
+  animation: float 4s ease-in-out infinite; /* Efeito de flutuação suave */
+}
+
+.floating-grimoire img {
+  width: 180px;
+  height: auto;
+}
+
+.hero-content {
+  max-width: 600px;
+  text-align: center;
+  z-index: 2;
+  padding: 0 20px;
+}
+
+.hero-quote {
+  font-family: 'Alice in Wonderland', Georgia, serif;
+  font-size: 2.5rem;
+  color: #2a1f1a;
+  line-height: 1.4;
+}
+
+/* Camada de Nuvens Cortando o Rodapé da Hero Section */
+.clouds-wrapper {
+  position: absolute;
+  bottom: -10px; /* Gruda no chão da tela */
+  left: 0;
+  width: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.cloud-layer {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+

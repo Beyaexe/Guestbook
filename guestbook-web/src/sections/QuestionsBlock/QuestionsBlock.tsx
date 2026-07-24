@@ -1,5 +1,5 @@
-import type { Question } from "../models/questions"
-import { Grimoire } from "../components/ui/Grimoire"
+import type { Question } from "../../models/questions"
+import { Grimoire } from "../../components/ui/Grimoire"
 
 
 interface QuestionBlockProps { //basicamente um contrato. Ao utilizar o componente, tem que seguir isso abaixo
@@ -24,7 +24,7 @@ export function QuestionBlock({ currentQuestion, onSort, isLoading, isOpenGrimoi
           </p>
 
           <button onClick={onSort} disabled={isLoading}>
-            {isLoading ? "Consultando os astros... ⏳" : "Sortear outra 🔮"}
+            {isLoading ? "Consultando os astros... ⏳" : "Invocar outra 🔮"}
           </button>
           <button onClick={onToggleModal}>
             Abrir Grimório 📜
@@ -41,14 +41,14 @@ export function QuestionBlock({ currentQuestion, onSort, isLoading, isOpenGrimoi
         </div>
       ) : (
         <>
-          <p>Clique no botão para invocar uma pergunta do grimório!</p>
+          <p>Clique no botão para invocar uma história do grimório!</p>
           <button onClick={onSort} disabled={isLoading}>
-            {isLoading ? "Invocando... ⏳" : "Invocar Pergunta 🔮"}
+            {isLoading ? "Invocando... ⏳" : "Invocar História 🔮"}
           </button>
         </>
       )}
     </div>
-  );
+  )
 
 
 }
