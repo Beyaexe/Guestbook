@@ -13,8 +13,8 @@ export function HeroSection() {
 
             <div className="hero-content">
                 <p className="hero-quote">
-                    "Este grimório permaneceu perdido por séculos. Dizem que cada viajante que nele escreve deixa também um fragmento de si gravado para sempre.
-                    Se chegou até aqui, talvez o livro também tenha escolhido você."
+                    "Este grimório permaneceu perdido por séculos. Dizem que cada viajante que nele escreve deixa junto um fragmento de si gravado para sempre.
+                    Se chegou até aqui, talvez o inefável livro também tenha escolhido você."
                 </p>
                 <span className="hero-author">— Dos céus</span>
             </div>

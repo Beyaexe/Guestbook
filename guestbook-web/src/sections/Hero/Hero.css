@@ -2,9 +2,12 @@
   0% {
     transform: translateY(0px);
   }
+
   50% {
-    transform: translateY(-18px); /* Eleva o elemento levemente */
+    transform: translateY(-18px);
+    /* Eleva o elemento levemente */
   }
+
   100% {
     transform: translateY(0px);
   }
@@ -15,6 +18,7 @@
   0% {
     transform: translateX(0px) translateY(0px);
   }
+
   100% {
     transform: translateX(-40px) translateY(-12px);
   }
@@ -24,23 +28,38 @@
   0% {
     transform: scaleX(-1) translateX(0px) translateY(0px);
   }
+
   100% {
     transform: scaleX(-1) translateX(-50px) translateY(-8px);
   }
 }
 
 @keyframes pointArrowRight {
+
   /* Giramos ~50 graus para nivelar a ponta da seta com o texto */
-  0% { transform: rotate(-20deg) translateX(4px); }
-  100% { transform: rotate(-20deg) translateX(-4px); } /* Desliza em direção ao botão */
+  0% {
+    transform: rotate(-20deg) translateX(4px);
+  }
+
+  100% {
+    transform: rotate(-20deg) translateX(-4px);
+  }
+
+  /* Desliza em direção ao botão */
 }
 
 /* Movimento da Seta Esquerda (aponta para a direita →) */
 @keyframes pointArrowLeft {
+
   /* O scaleX(-1) espelha a seta. Ao combinar com a rotação, ela aponta para o lado oposto.
      Como o eixo X está invertido, o translateX também funciona invertido! */
-  0% { transform: scaleX(-1) rotate(-20deg) translateX(4px); }
-  100% { transform: scaleX(-1) rotate(-20deg) translateX(-4px); }
+  0% {
+    transform: scaleX(-1) rotate(-20deg) translateX(4px);
+  }
+
+  100% {
+    transform: scaleX(-1) rotate(-20deg) translateX(-4px);
+  }
 }
 
 /* Animações individuais para não sobrescrever o scaleX */
@@ -48,6 +67,7 @@
   0% {
     transform: scaleX(-1) translateY(0px);
   }
+
   100% {
     transform: scaleX(-1) translateY(-12px);
   }
@@ -57,6 +77,7 @@
   0% {
     transform: translateY(0px);
   }
+
   100% {
     transform: translateY(-12px);
   }
@@ -66,13 +87,13 @@
   position: relative;
   width: 100%;
   height: 100vh;
-  height: 100dvh; 
-  
-  background-color: #f2ebd9; 
+  height: 100dvh;
+
+  background-color: #f2ebd9;
   background-image: url("./src/assets/images/grimoire_background3.png");
   background-size: contain;
   background-repeat: repeat;
-  
+
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -116,7 +137,7 @@
 }
 
 .hero-author {
-  color: #59473b; 
+  color: #59473b;
   font-size: 1.10rem;
   font-style: italic;
   margin-top: 4px;
@@ -128,7 +149,7 @@
    ========================================= */
 .clouds-wrapper {
   position: absolute;
-  bottom: 0; 
+  bottom: 0;
   left: 0;
   width: 100%;
   height: 380px;
@@ -146,30 +167,30 @@
 }
 
 .cloud-back {
-  bottom: -90px;        
-  opacity: 0.85;        
-  z-index: 1;        
+  bottom: -90px;
+  opacity: 0.85;
+  z-index: 1;
   animation: floatCloudLeft 4.3s ease-in-out infinite alternate;
 }
 
 .cloud-front {
-  bottom: -130px;       
+  bottom: -130px;
   left: -5%;
-  opacity: 1;           
-  z-index: 3;           
+  opacity: 1;
+  z-index: 3;
   animation: floatCloudRight 2.4s ease-in-out infinite alternate;
 }
 
 .crusader-knight-wrapper,
 .saint-maria-wrapper {
   position: absolute;
-  bottom: 60px; 
+  bottom: 60px;
   z-index: 2;
   pointer-events: none;
 }
 
 .crusader-knight-wrapper {
-  left: -4vw; 
+  left: -4vw;
 }
 
 .crusader-knight {
@@ -177,7 +198,7 @@
   width: auto;
   display: block;
   /* Inverte a imagem horizontalmente */
-  transform: scaleX(-1); 
+  transform: scaleX(-1);
   animation: floatArtCrusaderKnight 3s ease-in-out infinite alternate;
 }
 
@@ -188,7 +209,8 @@
 }
 
 .saint-maria {
-  height: 360px; /* Mantém a proporção com o cavaleiro */
+  height: 360px;
+  /* Mantém a proporção com o cavaleiro */
   width: auto;
   display: block;
   animation: floatArtSaintMaria 3s ease-in-out infinite alternate-reverse;
@@ -203,8 +225,9 @@
   align-items: center;
   justify-content: center;
   gap: 15px;
-  margin-top: 25px; 
-  z-index: 4; /* Precisa estar na frente das nuvens para ser clicável */
+  margin-top: 25px;
+  z-index: 4;
+  /* Precisa estar na frente das nuvens para ser clicável */
 }
 
 .cta-button {
@@ -225,7 +248,7 @@
 }
 
 .cta-arrow {
-  width: 40px; 
+  width: 40px;
   height: auto;
 }
 
@@ -234,8 +257,321 @@
 }
 
 .arrow-left {
-  transform: scaleX(-1); /* Isso vira a imagem ao contrário! */
+  transform: scaleX(-1);
+  /* Isso vira a imagem ao contrário! */
   animation: pointArrowLeft 1.2s ease-in-out infinite alternate;
 }
 
+/* ========================================= */
 
+
+
+/* =========================================
+   RESPONSIVIDADE 
+   ========================================= */
+/* =========================================
+   RESPONSIVIDADE (OTIMIZADA E PROGRESSIVA)
+   ========================================= */
+
+/* 1. TELAS GRANDES / DESKTOP (até 1440px) */
+@media (max-width: 1440px) {
+  .hero-title {
+    font-size: 3.6rem;
+    top: 40px;
+  }
+
+  .hero-content {
+    max-width: 85%;
+  }
+
+  .hero-quote {
+    font-size: 2.4rem;
+  }
+
+  .cta-button {
+    font-size: 1.7rem;
+  }
+
+  .cta-arrow {
+    width: 50px;
+  }
+
+  .floating-grimoire img {
+    width: 160px;
+  }
+
+  .crusader-knight,
+  .saint-maria {
+    height: clamp(200px, 48vh, 310px);
+  }
+
+  .crusader-knight-wrapper {
+    left: -8vw;
+    bottom: 25px;
+  }
+
+  .saint-maria-wrapper {
+    right: -5vw;
+    bottom: 80px;
+  }
+}
+
+/* 2. NOTEBOOK / TELAS COMUNS DE PC (até 1280px) */
+@media (max-width: 1280px) {
+  .hero-title {
+    font-size: 3.2rem;
+    top: 35px;
+  }
+
+  .hero-quote {
+    font-size: 2.1rem;
+  }
+
+  .cta-button {
+    font-size: 1.5rem;
+  }
+
+  .cta-arrow {
+    width: 45px;
+  }
+
+  .floating-grimoire img {
+    width: 140px;
+  }
+
+  .crusader-knight,
+  .saint-maria {
+    height: clamp(180px, 42vh, 280px);
+  }
+
+  .crusader-knight-wrapper {
+    left: -8vw;
+    bottom: 15px;
+  }
+
+  .saint-maria-wrapper {
+    right: -6vw;
+    bottom: 60px;
+  }
+}
+
+/* 3. TABLETS E TELAS MÉDIAS (até 1024px) */
+@media (max-width: 1024px) {
+  .hero-title {
+    font-size: 3.9rem;
+    top: 50px;
+  }
+
+  .hero-content {
+    max-width: 90%;
+  }
+
+  .hero-quote {
+    font-size: 2.1rem;
+  }
+
+  .floating-grimoire img {
+    width: 130px;
+  }
+
+  .crusader-knight,
+  .saint-maria {
+    height: clamp(200px, 40vh, 270px);
+  }
+
+  .crusader-knight-wrapper {
+    left: -8vw;
+    bottom: 6px;
+  }
+
+  .saint-maria-wrapper {
+    right: -7vw;
+    bottom: 48px;
+  }
+
+  .cloud-layer {
+    width: 110vw;
+    left: -7vw;
+  }
+
+  .cta-button {
+    font-size: 1.9rem;
+  }
+
+  .cta-arrow {
+    width: 60px;
+  }
+}
+
+/* 4. CELULAR GRANDE, FOLDABLES E TABLETS EM PÉ (até 768px) */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 3.5rem;
+    top: 30px;
+    letter-spacing: 2px;
+  }
+
+  .floating-grimoire {
+    margin-top: -20px;
+    margin-bottom: 15px;
+  }
+
+  .floating-grimoire img {
+    width: 110px;
+  }
+
+  .hero-quote {
+    font-size: 1.5rem;
+    line-height: 1.2;
+  }
+
+  .hero-author {
+    font-size: 0.75rem;
+  }
+
+  .cta-button {
+    font-size: 1.4rem;
+    letter-spacing: 1px;
+  }
+
+  .cta-arrow {
+    width: 35px;
+  }
+
+  .crusader-knight,
+  .saint-maria {
+    height: clamp(150px, 25vh, 200px);
+  }
+
+  .crusader-knight-wrapper {
+    bottom: 25px;
+    left: -7vw;
+  }
+
+  .saint-maria-wrapper {
+    bottom: 40px;
+    right: -16vw;
+  }
+
+  .clouds-wrapper {
+    height: 260px;
+    left: -7vw;
+  }
+}
+
+/* 5. SMARTPHONES / MOBILE (até 480px) */
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 2.4rem;
+    top: 25px;
+  }
+
+  .floating-grimoire img {
+    width: 120px;
+  }
+
+  .hero-content {
+    max-width: 95%;
+    padding: 0 10px;
+  }
+
+  .hero-quote {
+    font-size: 1.4rem;
+  }
+
+  .hero-author {
+    font-size: 0.85rem;
+  }
+
+  .cta-button {
+    font-size: 1.3rem;
+  }
+
+  .cta-arrow {
+    width: 30px;
+  }
+
+  .crusader-knight {
+    height: 135px;
+  }
+
+  .crusader-knight-wrapper {
+    bottom: 20px;
+    left: -12vw;
+  }
+
+  .saint-maria-wrapper {
+    bottom: 65px;
+    right: -16vw;
+  }
+
+   .saint-maria {
+    height: 135px;
+  }
+
+
+  .clouds-wrapper {
+    left: -7vw;
+    height: 125px;
+  }
+
+.cloud-layer {
+    width: 200vw;
+    min-width: unset;
+    left: -50vw;
+  }
+
+  .cloud-back {
+    bottom: -20px; 
+  }
+
+  .cloud-front {
+    bottom: -40px; 
+  }
+}
+
+@media (max-width: 380px){
+  .hero-title {
+      font-size: 2.2rem;
+      top: 35px;
+    }
+
+    .floating-grimoire img {
+    width: 100px;
+  }
+
+  .hero-quote {
+    font-size: 1.2rem;
+  }
+
+
+  .crusader-knight,
+  .saint-maria {
+    height: clamp(120px, 25vh, 130px);
+  }
+
+  .crusader-knight-wrapper {
+    bottom: 15px;
+    left: -10vw;
+  }
+
+  .saint-maria-wrapper {
+    bottom: 55px;
+    right: -16vw;
+  }
+
+
+  .clouds-wrapper {
+    left: -9vw;
+  }
+
+ .cloud-back {
+    bottom: -20px; 
+  }
+
+  .cloud-front {
+    bottom: -40px; 
+  }
+
+
+}
