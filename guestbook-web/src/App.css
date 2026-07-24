@@ -19,15 +19,29 @@
    2. IMPORTAÇÃO DE FONTES
    ========================================= */
 @font-face {
-  font-family: 'EFCO Brookshire';
-  src: url('./assets/fonts/BrookshireRegular.ttf') format('truetype');
+  font-family: 'Alice in Wonderland';
+  src: url('./assets/fonts/AliceInWonderland.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Alice in Wonderland';
-  src: url('./assets/fonts/AliceInWonderland.ttf') format('truetype');
+  font-family: 'Victorian Decade';
+  src: url('./assets/fonts/VictorianDecade.otf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Cyrano';
+  src: url('./assets/fonts/Cyrano.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Agonda';
+  src: url('./assets/fonts/Agonda.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
@@ -53,6 +67,11 @@ body {
   
   background-position: top left;
   background-attachment: fixed;
+}
+
+html, body {
+  overflow-x: hidden !important;
+  width: 100%;
   margin: 0;
   padding: 0;
 }
