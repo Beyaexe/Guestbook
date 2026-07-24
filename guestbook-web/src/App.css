@@ -153,9 +153,6 @@ button, .btn-action {
   transition: background 0.2s;
 }
 
-button:hover {
-  background-color: #a32e2e;
-}
 
 /* Responsividade */
 @media (max-width: 900px) {

@@ -1,27 +1,58 @@
 import "./Hero.css"
 
 export function HeroSection() {
-  return (
-    <section className="hero-section">
-      
-      {/* 1. Objeto Flutuante Superior (Grimório/Ilustração) */}
-      <div className="floating-grimoire">
-        <img src="./src/assets/images/grimoire_icon.png" alt="Grimório" />
-      </div>
+    return (
+        <section className="hero-section">
 
-      {/* 2. Conteúdo Textual Centralizado */}
-      <div className="hero-content">
-        <p className="hero-quote">
-          "Cada história escrita no grimório guarda um fragmento de quem a viveu."
-        </p>
-        <span className="hero-author">— O Autor</span>
-      </div>
+            <h1 className="hero-title">Grimoire Of Messages</h1>
 
-      {/* 3. Nuvens na parte inferior da tela */}
-      <div className="clouds-wrapper">
-        <img src="./src/assets/images/.png" alt="Nuvens" className="cloud-layer" />
-      </div>
 
-    </section>
-  )
+            <div className="floating-grimoire">
+                <img src="./src/assets/images/grimoire_icon.png" alt="Grimório" />
+            </div>
+
+            <div className="hero-content">
+                <p className="hero-quote">
+                    "Este grimório permaneceu perdido por séculos. Dizem que cada viajante que registra seu nome deixa um fragmento de si gravado para sempre.
+                    Se chegou até aqui, talvez o livro também tenha escolhido você."
+                </p>
+                <span className="hero-author">— Dos céus</span>
+            </div>
+
+
+
+            <div className="hero-cta-wrapper">
+                <img
+                    src="./src/assets/images/arrow.png"
+                    alt="Seta Esquerda"
+                    className="cta-arrow arrow-right"
+                />
+
+                <button className="cta-button">Abrir Grimório</button>
+
+                <img
+                    src="./src/assets/images/arrow.png"
+                    alt="Seta Direita"
+                    className="cta-arrow arrow-left"
+                />
+            </div>
+
+            <div className="clouds-wrapper">
+                {/* Nuvem do fundo (mais suave e lenta) */}
+                <img
+                    src="./src/assets/images/cloud.png"
+                    alt="Nuvem Traseira"
+                    className="cloud-layer cloud-back"
+                />
+
+                {/* Nuvem da frente (espelhada e mais rápida) */}
+                <img
+                    src="./src/assets/images/cloud.png"
+                    alt="Nuvem Frontal"
+                    className="cloud-layer cloud-front"
+                />
+            </div>
+
+        </section>
+    )
 }

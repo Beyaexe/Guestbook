@@ -4,11 +4,45 @@
     transform: translateY(0px);
   }
   50% {
-    transform: translateY(-12px); /* Eleva o elemento levemente */
+    transform: translateY(-18px); /* Eleva o elemento levemente */
   }
   100% {
     transform: translateY(0px);
   }
+}
+
+
+/* Nuvem 1: Inicia indo para a esquerda e sobe levemente */
+@keyframes floatCloudLeft {
+  0% {
+    transform: translateX(0px) translateY(0px);
+  }
+  100% {
+    transform: translateX(-30px) translateY(-12px);
+  }
+}
+
+@keyframes floatCloudRight {
+  0% {
+    transform: scaleX(-1) translateX(0px) translateY(0px);
+  }
+  100% {
+    transform: scaleX(-1) translateX(-40px) translateY(-8px);
+  }
+}
+
+@keyframes pointArrowRight {
+  /* Giramos ~50 graus para nivelar a ponta da seta com o texto */
+  0% { transform: rotate(-20deg) translateX(4px); }
+  100% { transform: rotate(-20deg) translateX(-4px); } /* Desliza em direção ao botão */
+}
+
+/* Movimento da Seta Esquerda (aponta para a direita →) */
+@keyframes pointArrowLeft {
+  /* O scaleX(-1) espelha a seta. Ao combinar com a rotação, ela aponta para o lado oposto.
+     Como o eixo X está invertido, o translateX também funciona invertido! */
+  0% { transform: scaleX(-1) rotate(-20deg) translateX(4px); }
+  100% { transform: scaleX(-1) rotate(-20deg) translateX(-4px); }
 }
 
 .hero-section {
@@ -29,9 +63,19 @@
   overflow: hidden; 
 }
 
+.hero-title {
+  position: absolute;
+  top: 40px;
+  font-family: 'EFCO Brookshire', Georgia, serif;
+  font-size: 2.9rem;
+  color: #59473b;
+  text-transform: none;
+  z-index: 2;
+}
+
 .floating-grimoire {
-  margin-bottom: 20px;
-  animation: float 4s ease-in-out infinite; /* Efeito de flutuação suave */
+  margin-bottom: 25px;
+  animation: float 3s ease-in-out infinite;
 }
 
 .floating-grimoire img {
@@ -40,7 +84,7 @@
 }
 
 .hero-content {
-  max-width: 600px;
+  max-width: 75%;
   text-align: center;
   z-index: 2;
   padding: 0 20px;
@@ -48,24 +92,95 @@
 
 .hero-quote {
   font-family: 'Alice in Wonderland', Georgia, serif;
-  font-size: 2.5rem;
+  font-size: 2.3rem;
   color: #2a1f1a;
-  line-height: 1.4;
+  line-height: 1;
 }
 
-/* Camada de Nuvens Cortando o Rodapé da Hero Section */
+.hero-author {
+  color: #59473b; 
+  font-size: 1.15rem;
+  font-style: italic;
+  margin-top: 4px;
+  display: block;
+}
+
+/* =========================================
+   CONTAINER E CAMADAS DE NUVENS
+   ========================================= */
 .clouds-wrapper {
   position: absolute;
-  bottom: -10px; /* Gruda no chão da tela */
+  bottom: -290px; 
   left: 0;
   width: 100%;
+  height: 400px;
   pointer-events: none;
   z-index: 1;
 }
 
 .cloud-layer {
-  width: 100%;
-  height: auto;
+  position: absolute;
+  max-width: none;
   display: block;
 }
 
+.cloud-back {
+  bottom: -5px;         
+  left: 0%;
+  width: 110%;         
+  opacity: 0.85;        
+  z-index: 1;        
+  animation: floatCloudLeft 4.3s ease-in-out infinite alternate;
+}
+
+.cloud-front {
+  bottom: -85px;       
+  left: -5%;
+  width: 106%;
+  opacity: 1;           
+  z-index: 2;           
+  animation: floatCloudRight 2.4s ease-in-out infinite alternate;
+}
+
+/* =========================================
+   CTA (BOTÃO E SETAS)
+   ========================================= */
+.hero-cta-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 30px; /* Distância do texto */
+  z-index: 3; /* Precisa estar na frente das nuvens para ser clicável */
+}
+
+.cta-button {
+  background: transparent;
+  border: none;
+  font-family: 'Alice in Wonderland', Georgia, serif;
+  font-size: 1.8rem;
+  color: #8b3a3a; /* Tom avermelhado para combinar com a seta */
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.cta-button:hover {
+  transform: scale(1.05);
+  opacity: 0.8;
+}
+
+.cta-arrow {
+  width: 40px; 
+  height: auto;
+}
+
+.arrow-right {
+  animation: pointArrowRight 1.2s ease-in-out infinite alternate;
+}
+
+.arrow-left {
+  transform: scaleX(-1); /* Isso vira a imagem ao contrário! */
+  animation: pointArrowLeft 1.2s ease-in-out infinite alternate;
+}
